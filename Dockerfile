@@ -1,4 +1,3 @@
-# 基本のイメージ
 FROM node:18
 
 # 作業ディレクトリの設定
@@ -16,11 +15,11 @@ COPY . .
 # ビルド
 RUN npm run build
 
-# エクスポートの代わりに出力がビルド時に行われる
-# (次のコマンドは不要)
+# 出力フォルダを確認
+RUN ls -l docs  
 
 # ポートの公開
 EXPOSE 3000
 
 # 静的ファイルを提供
-CMD ["npx", "serve@latest", "out"]
+CMD ["npx", "serve@latest", "docs"]
