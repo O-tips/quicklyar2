@@ -1,23 +1,26 @@
-# Use an official Node runtime as a parent image
-FROM node:16
+# 基本のイメージ
+FROM node:18
 
-# Set the working directory to /app
+# 作業ディレクトリの設定
 WORKDIR /app
 
-# Copy the package.json and package-lock.json to the working directory
+# 必要なファイルをコピー
 COPY ./package*.json ./
 
-# Install the dependencies
+# 依存関係をインストール
 RUN npm install
 
-# Copy the remaining application files to the working directory
+# 残りのアプリケーションファイルをコピー
 COPY . .
 
-# Build the application
+# ビルド
 RUN npm run build
 
-# Expose port 3000 for the application
+# エクスポートの代わりに出力がビルド時に行われる
+# (次のコマンドは不要)
+
+# ポートの公開
 EXPOSE 3000
 
-# Start the application
-CMD [ "npm", "run", "start" ]
+# 静的ファイルを提供
+CMD ["npx", "serve@latest", "out"]
